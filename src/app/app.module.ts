@@ -10,6 +10,7 @@ import { ReportsComponent } from "./components/reports/reports/reports.component
 import { LoginComponent } from "./components/login/login.component";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { RouterModule } from "@angular/router";
     ReportsComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

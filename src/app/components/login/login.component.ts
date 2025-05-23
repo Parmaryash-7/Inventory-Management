@@ -21,23 +21,31 @@ export class LoginComponent implements OnInit {
     this.errorMessage = "";
 
     if (!loginForm.valid) {
-      // Mark all controls as touched to show validation errors on submit
       Object.values(loginForm.controls).forEach((control) => {
         control.markAsTouched();
       });
-      return; // Stop if form invalid
+      return;
     }
 
-    const isLoggedIn = this.authService.login(this.email, this.password);
-
-    if (isLoggedIn) {
-      this.router.navigate(["/admin"]);
-    } else {
-      this.errorMessage = "Invalid credentials.";
-    }
+    this.authService.login(this.email, this.password).subscribe(
+      (res: any) => {
+        if (res.status) {
+          localStorage.setItem("auth", "true");
+          localStorage.setItem("userEmail", res.admin_details.email);
+          this.router.navigate(["/admin"]);
+        } else {
+          this.errorMessage = res.message || "Login failed";
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.errorMessage = error.error.message || "An error occurred during login";
+      }
+    );
   }
 
+
   onInputChange() {
-    this.errorMessage = ""; // clear error message on input change
+    this.errorMessage = "";
   }
 }
