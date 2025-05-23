@@ -44,8 +44,7 @@
         <div class="">
             <div>
                 <div class="formInput">
-                    <input type="file" name="media" #media multiple (change)="onMediaChange($event)" required
-                        [ngClass]="{ 'is-invalid': careerForm.submitted && careerObj.media == '' }" accept="image/jpeg">
+                    <input type="file" name="media" #media multiple (change)="onMediaChange($event)" required accept="image/jpeg">
                 </div>
             </div>
             <div class="mediaFlex d-flex">

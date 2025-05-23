@@ -8,7 +8,7 @@ export interface Product {
   category?: string;
   description?: string;
   count?: number;
-  mediaGallery ?: [];
+  mediaGallery?: any[];
 }
 
 @Injectable({
