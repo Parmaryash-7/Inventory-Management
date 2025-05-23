@@ -31,10 +31,10 @@
                 <label for="amount">Amount</label>
                 <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required />
             </div>
-            <div class="">
+            <!-- <div class="">
                 <label for="count">Count</label>
                 <input type="number" id="count" name="count" [(ngModel)]="product.count" required />
-            </div>
+            </div> -->
         </div>
         <!-- <div class="">
             <label for="profile_image" class="form-label">Profile Image:</label>
@@ -44,12 +44,12 @@
         <div class="">
             <div>
                 <div class="formInput" style="position: relative;">
-                    <label class="manrope font_20" style="width: 200px; cursor: pointer; text-align: center; position: absolute; top: 0; font-size: 18px; font-weight: 600;border: 1px solid transparent; padding: 15px;border-radius: 8px;background: linear-gradient(135deg, #667eea, #764ba2); color: white;">Select Images</label>
+                    <label class="manrope font_20" style=" cursor: pointer; text-align: center; position: absolute; top: 0; font-size: 18px; font-weight: 600;border: 1px solid transparent; padding: 15px;border-radius: 8px;background: linear-gradient(135deg, #667eea, #764ba2); color: white;">Select Images</label>
                     <input type="file" name="media" #media multiple (change)="onMediaChange($event)" required accept="image/jpeg" style="opacity: 0;z-index: 9;position: relative; cursor: pointer; width: 200px; padding: 15px">
                 </div>
             </div>
-            <div class="mediaFlex d-flex" style="display: flex; flex-wrap: wrap; gap: 25px; width: 100%;">
-                <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery" style="width: 40%;">
+            <div class="mediaFlex d-grid">
+                <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery">
                     <span class="material-symbols-outlined" (click)="removeMedia(i, media.id)" style="cursor: pointer;">
                         close
                     </span>

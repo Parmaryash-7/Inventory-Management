@@ -74,3 +74,9 @@ p {
     gap: 1rem;
     align-items: center;
 }
+
+.d-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 12px;
+}
