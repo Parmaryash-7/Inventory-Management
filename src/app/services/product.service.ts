@@ -5,6 +5,9 @@ export interface Product {
   name: string;
   amount: number;
   stock: number;
+  category?: string;
+  description?: string;
+  count?: number;
 }
 
 @Injectable({
@@ -17,7 +20,7 @@ export class ProductService {
     { id: 3, name: "Product C", amount: 340, stock: 20 },
   ];
 
-  getProducts() {
+  getProducts(): Product[] {
     return this.products;
   }
 
@@ -25,8 +28,7 @@ export class ProductService {
     return this.products.find((p) => p.id === id);
   }
 
-  createProduct(product: Product): void {
-    // Create product - just push to array
+  addProduct(product: Product): void {
     this.products.push(product);
   }
 

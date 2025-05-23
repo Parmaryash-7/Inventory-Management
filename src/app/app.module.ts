@@ -10,6 +10,7 @@ import { ReportsComponent } from "./components/reports/reports/reports.component
 import { LoginComponent } from "./components/login/login.component";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
@@ -21,7 +22,7 @@ import { HttpClientModule } from "@angular/common/http";
     ReportsComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule,NgxChartsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

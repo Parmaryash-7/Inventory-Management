@@ -2,7 +2,8 @@
 
 .product-create-container {
     font-family: 'Poppins', sans-serif;
-    max-width: 500px;
+    /* max-width: 500px; */
+    width: 40%;
     margin: 3rem auto;
     padding: 2rem;
     background: linear-gradient(145deg, #fdfbfb, #ebedee);
@@ -40,7 +41,7 @@ input:focus {
 }
 
 button {
-    width: 100%;
+    width: 30%;
     padding: 0.8rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     border: none;
@@ -50,6 +51,9 @@ button {
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 button:hover {
@@ -62,4 +66,11 @@ p {
     color: green;
     font-weight: 500;
     margin-top: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+    align-items: center;
 }
