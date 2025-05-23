@@ -50,7 +50,7 @@
             </div>
             <div class="mediaFlex d-flex" style="display: flex; flex-wrap: wrap; gap: 25px; width: 100%;">
                 <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery" style="width: 40%;">
-                    <span class="material-symbols-outlined" (click)="removeMedia(i, media.id)">
+                    <span class="material-symbols-outlined" (click)="removeMedia(i, media.id)" style="cursor: pointer;">
                         close
                     </span>
                     <img [src]="media.image" alt="" style="aspect-ratio: 1; object-fit: cover; width: 85%;
