@@ -36,9 +36,26 @@
                 <input type="number" id="count" name="count" [(ngModel)]="product.count" required />
             </div>
         </div>
-        <div class="">
+        <!-- <div class="">
             <label for="profile_image" class="form-label">Profile Image:</label>
             <input type="file" id="profile_image" class="form-control" (change)="onImageChange($event)" required />
+        </div> -->
+
+        <div class="">
+            <div>
+                <div class="formInput">
+                    <input type="file" name="media" #media multiple (change)="onMediaChange($event)" required
+                        [ngClass]="{ 'is-invalid': careerForm.submitted && careerObj.media == '' }" accept="image/jpeg">
+                </div>
+            </div>
+            <div class="mediaFlex d-flex">
+                <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery">
+                    <span class="material-symbols-outlined" (click)="removeMedia(i, media.id)">
+                        close
+                    </span>
+                    <img [src]="media.image" alt="" style="aspect-ratio: 1; object-fit: cover;">
+                </div>
+            </div>
         </div>
         <!-- <div *ngIf="!user.profile_image" class="text-danger">
                   Please select a profile image.
@@ -51,7 +68,7 @@
 </div> -->
 
         <!-- <button type="submit" [disabled]="productForm.invalid">Create</button> -->
-         <button type="submit">Create</button>
+        <button type="submit">Create</button>
 
         <p *ngIf="submitted">Product successfully created!</p>
     </form>

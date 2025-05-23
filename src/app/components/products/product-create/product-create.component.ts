@@ -17,7 +17,8 @@ export class ProductCreateComponent implements OnInit {
     description: "",
     count: null!,
   };
-
+  
+  
   submitted = false;
   selectedFile: File | null = null;
 
@@ -52,6 +53,7 @@ export class ProductCreateComponent implements OnInit {
       id: null!,
       name: "",
       amount: null!,
+      mediaGallery: [],
       stock: null!,
       category: "",
       description: "",
@@ -60,5 +62,34 @@ export class ProductCreateComponent implements OnInit {
 
     // Navigate to products list page after create
     this.router.navigate(["/products"]);
+  }
+
+  public mediaArray:any = [];
+  public tempArray:any;
+
+  onMediaChange(event: any) {
+    const files = event.target.files;
+    for (let key in files) {
+      const file = files[key];
+      if (file instanceof Blob) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.mediaArray.push({ image: e.target.result });
+          this.tempArray.push(file);
+          this.product.mediaGallery = [...this.tempArray];
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
+  // Media Gallery Remove Function
+  removeMedia(index: number, removeId: any) {
+    this.mediaArray.splice(index, 1);
+    this.product.mediaGallery.splice(index,1);
+    // if (removeId) {
+    //   this.removedMedia.push(removeId);
+    //   this.careerObj.removeMedia = this.removedMedia;
+    // }
   }
 }
