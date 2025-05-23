@@ -1,0 +1,48 @@
+.dashboard-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+nav {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    transition: background 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover {
+    background: linear-gradient(90deg, #feb47b, #ff7e5f);
+}
+
+.logout-btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+}

@@ -1,0 +1,12 @@
+<div class="dashboard-container">
+    <h1>Welcome, {{ userName }}</h1>
+    <p>This is your admin dashboard.</p>
+
+    <nav>
+        <a routerLink="/products" class="nav-link">Manage Products</a>
+        <a routerLink="/products/create" class="nav-link">Add Products</a>
+        <a routerLink="/reports" class="nav-link">Reports</a>
+    </nav>
+
+    <button (click)="logout()" class="logout-btn">Logout</button>
+</div>

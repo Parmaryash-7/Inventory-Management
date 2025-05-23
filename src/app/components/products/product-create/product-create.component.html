@@ -1,0 +1,55 @@
+<div class="product-create-container">
+    <h2>Create Product</h2>
+
+    <form #productForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="">
+            <label for="id">Product ID</label>
+            <input type="text" id="id" name="id" [(ngModel)]="product.id" required minlength="1" />
+        </div>
+        <div>
+            <label for="name">Product Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="product.name" required minlength="3" />
+        </div>
+        <div class="">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required />
+        </div>
+        <div class="">
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" [(ngModel)]="product.stock" required />
+        </div>
+        <div class="">
+            <label for="category">Category</label>
+            <input type="number" id="category" name="category" [(ngModel)]="product.category" required />
+        </div>
+        <div class="">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" [(ngModel)]="product.description" required />
+        </div>
+        <div class="">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required />
+        </div>
+        <div class="">
+            <label for="count">Count</label>
+            <input type="number" id="count" name="count" [(ngModel)]="product.count" required />
+        </div>
+        <div class="">
+            <label for="profile_image" class="form-label">Profile Image:</label>
+            <input type="file" id="profile_image" class="form-control" (change)="onImageChange($event)" required />
+        </div>
+        <!-- <div *ngIf="!user.profile_image" class="text-danger">
+                  Please select a profile image.
+              </div> -->
+        <!-- </div> -->
+
+        <!-- <div *ngIf="user.profile_image?.preview" class="mb-3">
+    <h5>Image Preview:</h5>
+    <img [src]="user.profile_image.preview" alt="User Image" class="img-thumbnail" width="200" />
+</div> -->
+
+        <button type="submit" [disabled]="productForm.invalid">Create</button>
+
+        <p *ngIf="submitted">Product successfully created!</p>
+    </form>
+</div>
