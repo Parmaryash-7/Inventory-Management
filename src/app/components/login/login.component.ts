@@ -15,7 +15,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(localStorage.getItem("auth")){
+      this.router.navigate(['admin']);
+    }
+  }
 
   onSubmit(loginForm: NgForm): void {
     this.errorMessage = "";
