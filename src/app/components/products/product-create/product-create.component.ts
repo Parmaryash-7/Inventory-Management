@@ -15,7 +15,7 @@ export class ProductCreateComponent implements OnInit {
     stock: null!,
     category: "",
     description: "",
-    count: null!,
+    // count: null!,
   };
   
   
@@ -57,7 +57,7 @@ export class ProductCreateComponent implements OnInit {
       stock: null!,
       category: "",
       description: "",
-      count: null!,
+      // count: null!,
     };
 
     // Navigate to products list page after create

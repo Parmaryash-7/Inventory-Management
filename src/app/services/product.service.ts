@@ -7,7 +7,6 @@ export interface Product {
   stock: number;
   category?: string;
   description?: string;
-  count?: number;
   mediaGallery?: any[];
 }
 
