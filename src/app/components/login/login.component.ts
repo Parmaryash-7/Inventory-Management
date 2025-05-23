@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { NgForm } from "@angular/forms";
+import { AlertService } from "src/app/alert.service";
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   password = "";
   errorMessage = "";
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private alertService: AlertService) {}
 
   ngOnInit() {
     if(localStorage.getItem("auth")){
@@ -36,14 +37,17 @@ export class LoginComponent implements OnInit {
         if (res.status) {
           localStorage.setItem("auth", "true");
           localStorage.setItem("userEmail", res.admin_details.email);
+          this.alertService.success("Logged In!");
           this.router.navigate(["/admin"]);
         } else {
-          this.errorMessage = res.message || "Login failed";
+          // this.errorMessage = res.message || "Login failed";
+          this.alertService.error(res.message || "Login failed");
         }
       },
       (error) => {
-        console.error(error);
-        this.errorMessage = error.error.message || "An error occurred during login";
+        // console.error(error);
+        // this.errorMessage = error.error.message || "An error occurred during login";
+        this.alertService.error(error.error.message || "An error occurred during login");
       }
     );
   }

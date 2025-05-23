@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from '@angular/common/http';
+import { AlertService } from "../alert.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alertService: AlertService, private router: Router) {}
   public auth_token_glob = '';
   private base_url = environment.API_URL;
   private isAuthenticated = false;
@@ -31,11 +33,19 @@ export class AuthService {
   }
 
   logout(): void {
-    this.isAuthenticated = false;
-    this.userEmail = null;
-    localStorage.removeItem("auth");
-    localStorage.removeItem("userEmail");
-    this.auth_token_glob = null;
+    this.alertService.confirm("Want To Logout ❔").then((res)=>{
+      if (res.isConfirmed) {
+        this.alertService.success('See you later!');
+        this.isAuthenticated = false;
+        this.userEmail = null;
+        localStorage.removeItem("auth");
+        localStorage.removeItem("userEmail");
+        this.auth_token_glob = null;
+        this.router.navigate(['/']);
+      } else {
+        this.alertService.success('Welcome back!');
+      }
+    })
   }
 
   isLoggedIn(): boolean {

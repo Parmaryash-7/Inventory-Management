@@ -20,4 +20,6 @@ export class ProductsShowComponent implements OnInit {
     { id: 2, name: "Product B", count: 7, amount: 120 },
     { id: 3, name: "Product C", count: 20, amount: 340 },
   ];
+
+  
 }
