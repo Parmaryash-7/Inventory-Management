@@ -32,11 +32,11 @@ export class ReportsComponent implements OnInit {
 
     this.countData = this.products
       .filter(
-        (p) => p.count !== undefined && p.count !== null && !isNaN(p.count)
+        (p) => p.stock !== undefined && p.stock !== null && !isNaN(p.stock)
       )
       .map((p) => ({
         name: p.name,
-        value: Number(p.count) || 0,
+        value: Number(p.stock) || 0,
       }));
 
     this.amountData = this.products
