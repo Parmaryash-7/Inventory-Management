@@ -14,11 +14,15 @@ export class LoginComponent implements OnInit {
   password = "";
   errorMessage = "";
 
-  constructor(private authService: AuthService, private router: Router, private alertService: AlertService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {
-    if(localStorage.getItem("auth")){
-      this.router.navigate(['admin']);
+    if (localStorage.getItem("auth")) {
+      this.router.navigate(["admin"]);
     }
   }
 
@@ -35,7 +39,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email, this.password).subscribe(
       (res: any) => {
         if (res.status) {
+          this.authService.auth_token_glob = res["auth_token"];
           localStorage.setItem("auth", "true");
+          localStorage.setItem("auth_token", res["auth_token"]);
           localStorage.setItem("userEmail", res.admin_details.email);
           this.alertService.success("Logged In!");
           this.router.navigate(["/admin"]);
@@ -47,11 +53,12 @@ export class LoginComponent implements OnInit {
       (error) => {
         // console.error(error);
         // this.errorMessage = error.error.message || "An error occurred during login";
-        this.alertService.error(error.error.message || "An error occurred during login");
+        this.alertService.error(
+          error.error.message || "An error occurred during login"
+        );
       }
     );
   }
-
 
   onInputChange() {
     this.errorMessage = "";

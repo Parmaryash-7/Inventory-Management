@@ -1,46 +1,52 @@
 <div class="products-container">
-    <h2>Products List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Count</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of products" class="product-row">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>
-                    <img [src]="product.profile_image" alt="Profile Image" class="img-thumbnail"
-                        style="width: 60px; height: 60px;" />
-                </td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.amount | currency }}</td>
-                <td>{{ product.count }}</td>
-                <td>
-                    <!-- Edit -->
-                    <button class="btn btn-warning" (click)="onEdit(product.id)">
-                        <span class="material-symbols-outlined">
-                            edit
-                        </span>
-                    </button>
-                    <!-- delete -->
-                    <button (click)="deleteUser(product.id)" class="btn btn-danger" title="Delete">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                        <!-- <i class="fas fa-trash-alt"></i> -->
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <h2>Products List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <!-- <th>Count</th> -->
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products" class="product-row">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>
+          <ng-container *ngFor="let image of product.image">
+            <img
+              [src]="image"
+              alt="Product Image"
+              class="img-thumbnail"
+              style="width: 60px; height: 60px"
+            />
+          </ng-container>
+        </td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.amount | currency }}</td>
+        <!-- <td>{{ product.count }}</td> -->
+        <td>
+          <!-- Edit -->
+          <button class="btn btn-warning" (click)="onEdit(product.id)">
+            <span class="material-symbols-outlined"> edit </span>
+          </button>
+          <!-- delete -->
+          <button
+            (click)="deleteUser(product.id)"
+            class="btn btn-danger"
+            title="Delete"
+          >
+            <span class="material-symbols-outlined"> delete </span>
+            <!-- <i class="fas fa-trash-alt"></i> -->
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
