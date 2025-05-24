@@ -12,7 +12,7 @@ export interface Product {
   stock: number;
   category?: string;
   description?: string;
-  mediaGallery?: any[];
+  image?: any[];
 }
 
 @Injectable({
@@ -33,7 +33,7 @@ export class ProductService {
     contentType: string = "application/json"
   ) {
     const headers: any = {
-      "Content-Type": contentType,
+      // "Content-Type": contentType,
     };
 
     if (auth_token) {
@@ -59,11 +59,28 @@ export class ProductService {
     // return this.products.find((p) => p.id === id);
   }
 
-  addProduct(product: Product): Observable<Product> {
+  addProduct(product: any): Observable<any> {
     const apiUrl = `${this.base_url}/add_product`;
     const token = localStorage.getItem("auth_token");
-    return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
+
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('category', product.category);
+    formData.append('description', product.description);
+    formData.append('amount', product.amount);
+    formData.append('stock', product.stock);
+
+    product.image.forEach((file: File) => {
+      formData.append('image[]', file);
+    });
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    return this.http.post(apiUrl, formData, { headers });
   }
+
 
   updateProduct(product: Product): Observable<Product> {
     const apiUrl = `${this.base_url}/update_product/${product.id}`;
