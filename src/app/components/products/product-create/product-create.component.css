@@ -40,7 +40,7 @@ input:focus {
     box-shadow: 0 0 5px rgba(118, 75, 162, 0.3);
 }
 
-.button {
+button {
     width: 30%;
     padding: 0.8rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
@@ -56,8 +56,7 @@ input:focus {
     justify-content: center;
 }
 
-.img-hover-container:hover .img-hover-btn,
-.button:hover {
+button:hover {
     background: linear-gradient(135deg, #5a67d8, #6b46c1);
     transform: scale(1.02);
 }

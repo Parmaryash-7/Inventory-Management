@@ -1,31 +1,39 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { Product, ProductService } from "src/app/services/product.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductService, Product } from 'src/app/services/product.service';
 
 @Component({
-  selector: "app-product-create",
-  templateUrl: "./product-create.component.html",
-  styleUrls: ["./product-create.component.css"],
+  selector: 'app-product-create',
+  templateUrl: './product-create.component.html',
+  styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-  product: Product = {
-    id: null!,
-    name: "",
-    amount: null!,
-    stock: null!,
-    category: "",
-    description: "",
-    mediaGallery: [],
-  };
-
+  productForm!: FormGroup;
   submitted = false;
+  errorMessage = '';
   mediaArray: { image: string; id: number }[] = [];
   tempArray: File[] = [];
-  errorMessage = "";
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      amount: [null, [Validators.required]],
+      stock: [null, [Validators.required]],
+      category: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+    });
+  }
+
+  get f() {
+    return this.productForm.controls;
+  }
 
   onMediaChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -40,7 +48,6 @@ export class ProductCreateComponent implements OnInit {
           };
           this.mediaArray.push(imageData);
           this.tempArray.push(file);
-          this.product.mediaGallery = [...this.tempArray];
         };
         reader.readAsDataURL(file);
       });
@@ -50,42 +57,29 @@ export class ProductCreateComponent implements OnInit {
   removeMedia(index: number): void {
     this.mediaArray.splice(index, 1);
     this.tempArray.splice(index, 1);
-    this.product.mediaGallery = [...this.tempArray];
   }
 
   onSubmit(): void {
     this.submitted = true;
 
-    const { name, amount, stock, category, description } = this.product;
-
-    const isValid =
-      name.trim() &&
-      amount != null &&
-      stock != null &&
-      category.trim() &&
-      description.trim() &&
-      this.mediaArray.length > 0;
-
-    if (!isValid) {
-      this.errorMessage = "Please fill out this form.";
+    if (this.productForm.invalid || this.mediaArray.length === 0) {
+      this.errorMessage = 'Please fill out this form.';
       return;
     }
 
-    this.productService.addProduct({ ...this.product });
-    this.errorMessage = "";
-
-    this.product = {
-      id: null!,
-      name: "",
-      amount: null!,
-      stock: null!,
-      category: "",
-      description: "",
-      mediaGallery: [],
+    const newProduct: Product = {
+      id: Date.now(),
+      ...this.productForm.value,
+      mediaGallery: [...this.tempArray]
     };
+
+    this.productService.addProduct(newProduct);
+
+    this.productForm.reset();
     this.mediaArray = [];
     this.tempArray = [];
+    this.errorMessage = '';
 
-    this.router.navigate(["/products"]);
+    this.router.navigate(['/products']);
   }
 }

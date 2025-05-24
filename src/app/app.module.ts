@@ -8,7 +8,7 @@ import { ProductsShowComponent } from "./components/products/products-show/produ
 import { ProductCreateComponent } from "./components/products/product-create/product-create.component";
 import { ReportsComponent } from "./components/reports/reports/reports.component";
 import { LoginComponent } from "./components/login/login.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { HttpClientModule } from "@angular/common/http";
@@ -22,7 +22,7 @@ import { HttpClientModule } from "@angular/common/http";
     ReportsComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule,NgxChartsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule,NgxChartsModule, HttpClientModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
