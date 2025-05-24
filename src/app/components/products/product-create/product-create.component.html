@@ -3,45 +3,75 @@
 
     <form #productForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-grid">
-            <div class="">
+            <div>
                 <label for="id">Product ID</label>
-                <input type="number" id="id" name="id" [(ngModel)]="product.id" required minlength="1" />
+                <input type="number" id="id" name="id" [(ngModel)]="product.id" #id="ngModel" required />
+                <div *ngIf="id.invalid && (id.dirty || id.touched)">
+                    <small class="text-danger" *ngIf="id.errors?.required">Product ID is required.</small>
+                </div>
             </div>
-            <div class="">
-                <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" [(ngModel)]="product.name" required minlength="3" />
-            </div>
-            <!-- <div class="">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required />
-        </div> -->
-            <div class="">
-                <label for="stock">Stock</label>
-                <input type="number" id="stock" name="stock" [(ngModel)]="product.stock" required />
-            </div>
-            <div class="">
-                <label for="category">Category</label>
-                <input type="" id="category" name="category" [(ngModel)]="product.category" required />
-            </div>
-            <div class="">
-                <label for="description">Description</label>
-                <input type="text" id="description" name="description" [(ngModel)]="product.description" required />
-            </div>
-            <div class="">
-                <label for="amount">Amount</label>
-                <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required />
-            </div>
-            <!-- <div class="">
-                <label for="count">Count</label>
-                <input type="number" id="count" name="count" [(ngModel)]="product.count" required />
-            </div> -->
-        </div>
-        <!-- <div class="">
-            <label for="profile_image" class="form-label">Profile Image:</label>
-            <input type="file" id="profile_image" class="form-control" (change)="onImageChange($event)" required />
-        </div> -->
 
-        <div class="">
+            <div>
+                <label for="name">Product Name</label>
+                <input type="text" id="name" name="name" [(ngModel)]="product.name" #name="ngModel" required
+                    minlength="3" />
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                    <small class="text-danger" *ngIf="name.errors?.required">Name is required.</small>
+                    <small class="text-danger" *ngIf="name.errors?.minlength">Minimum 3 characters required.</small>
+                </div>
+            </div>
+
+            <div>
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" [(ngModel)]="product.stock" #stock="ngModel" required />
+                <div *ngIf="stock.invalid && (stock.dirty || stock.touched)">
+                    <small class="text-danger">Stock is required.</small>
+                </div>
+            </div>
+
+            <div>
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" [(ngModel)]="product.category" #category="ngModel"
+                    required />
+                <div *ngIf="category.invalid && (category.dirty || category.touched)">
+                    <small class="text-danger">Category is required.</small>
+                </div>
+            </div>
+
+            <div>
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" [(ngModel)]="product.description"
+                    #description="ngModel" required />
+                <div *ngIf="
+            description.invalid && (description.dirty || description.touched)
+          ">
+                    <small class="text-danger">Description is required.</small>
+                </div>
+            </div>
+
+            <div>
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" #amount="ngModel"
+                    required />
+                <div *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+                    <small class="text-danger">Amount is required.</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Upload -->
+        <!-- <div>
+            <label>Select Images</label>
+            <input type="file" (change)="onMediaChange($event)" multiple accept="image/jpeg" />
+
+            <div class="mediaFlex d-grid">
+                <div *ngFor="let media of mediaArray; let i = index">
+                    <span (click)="removeMedia(i)">✕</span>
+                    <img [src]="media.image" alt="preview" style="width: 100px" />
+                </div>
+            </div>
+        </div> -->
+                <div class="">
             <div>
                 <div class="formInput" style="position: relative;">
                     <label class="manrope font_20" style=" cursor: pointer; text-align: center; position: absolute; top: 0; font-size: 18px; font-weight: 600;border: 1px solid transparent; padding: 15px;border-radius: 8px;background: linear-gradient(135deg, #667eea, #764ba2); color: white;">Select Images</label>
@@ -58,18 +88,9 @@
                 </div>
             </div>
         </div>
-        <!-- <div *ngIf="!user.profile_image" class="text-danger">
-                  Please select a profile image.
-              </div> -->
-        <!-- </div> -->
 
-        <!-- <div *ngIf="user.profile_image?.preview" class="mb-3">
-    <h5>Image Preview:</h5>
-    <img [src]="user.profile_image.preview" alt="User Image" class="img-thumbnail" width="200" />
-</div> -->
 
-        <!-- <button type="submit" [disabled]="productForm.invalid">Create</button> -->
-        <button type="submit">Create</button>
+        <button type="submit" [disabled]="productForm.invalid">Create</button>
 
         <p *ngIf="submitted">Product successfully created!</p>
     </form>

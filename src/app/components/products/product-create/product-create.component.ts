@@ -15,63 +15,23 @@ export class ProductCreateComponent implements OnInit {
     stock: null!,
     category: "",
     description: "",
-    // count: null!,
+    mediaGallery: [],
   };
-  
-  
+
   submitted = false;
-  selectedFile: File | null = null;
+  mediaArray: any[] = [];
+  tempArray: File[] = [];
 
   constructor(private productService: ProductService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  onImageChange(event: Event) {
+  // Handle image file input
+  onMediaChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.selectedFile = input.files[0];
-      console.log("Selected file:", this.selectedFile);
-      // You can add preview or upload logic here if needed
-    }
-  }
-
-  onSubmit() {
-    if (
-      !this.product.id ||
-      !this.product.name ||
-      !this.product.amount ||
-      !this.product.stock
-    ) {
-      return;
-    }
-
-    this.productService.addProduct({ ...this.product });
-    this.submitted = true;
-
-    // Reset form
-    this.product = {
-      id: null!,
-      name: "",
-      amount: null!,
-      mediaGallery: [],
-      stock: null!,
-      category: "",
-      description: "",
-      // count: null!,
-    };
-
-    // Navigate to products list page after create
-    this.router.navigate(["/products"]);
-  }
-
-  public mediaArray:any = [];
-  public tempArray:any;
-
-  onMediaChange(event: any) {
-    const files = event.target.files;
-    for (let key in files) {
-      const file = files[key];
-      if (file instanceof Blob) {
+    if (input.files && input.files.length > 0) {
+      const files = Array.from(input.files);
+      files.forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.mediaArray.push({ image: e.target.result });
@@ -79,17 +39,50 @@ export class ProductCreateComponent implements OnInit {
           this.product.mediaGallery = [...this.tempArray];
         };
         reader.readAsDataURL(file);
-      }
+      });
     }
   }
 
-  // Media Gallery Remove Function
-  removeMedia(index: number, removeId: any) {
+  // Remove selected media
+  removeMedia(index: number): void {
     this.mediaArray.splice(index, 1);
-    this.product.mediaGallery.splice(index,1);
-    // if (removeId) {
-    //   this.removedMedia.push(removeId);
-    //   this.careerObj.removeMedia = this.removedMedia;
-    // }
+    this.tempArray.splice(index, 1);
+    this.product.mediaGallery = [...this.tempArray];
+  }
+
+  // Form submit handler
+  onSubmit(): void {
+    if (
+      !this.product.id ||
+      !this.product.name ||
+      !this.product.amount ||
+      !this.product.stock ||
+      !this.product.category ||
+      !this.product.description
+    ) {
+      return; // Skip if any required field is missing
+    }
+
+    // Submit the product
+    this.productService.addProduct({ ...this.product });
+
+    // Show confirmation
+    this.submitted = true;
+
+    // Reset form
+    this.product = {
+      id: null!,
+      name: "",
+      amount: null!,
+      stock: null!,
+      category: "",
+      description: "",
+      mediaGallery: [],
+    };
+    this.mediaArray = [];
+    this.tempArray = [];
+
+    // Navigate to product list
+    this.router.navigate(["/products"]);
   }
 }
