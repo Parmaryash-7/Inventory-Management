@@ -11,7 +11,7 @@ export class AlertService {
       toast: true,
       position: 'bottom-right',
       icon: icon,
-      // title: title, // define if needed
+      title: title, // define if needed
       text: message,// define if needed
       showConfirmButton: false,
       showCloseButton: true,
@@ -25,19 +25,19 @@ export class AlertService {
     });
   }
 
-  success(message: string, title: string = 'Success') {
+  success(message: string, title: string = '') {
     this.baseToast('success', title, message);
   }
 
-  error(message: string, title: string = 'Error') {
+  error(message: string, title: string = '') {
     this.baseToast('error', title, message);
   }
 
-  info(message: string, title: string = 'Info') {
+  info(message: string, title: string = '') {
     this.baseToast('info', title, message);
   }
 
-  warning(message: string, title: string = 'Warning') {
+  warning(message: string, title: string = '') {
     this.baseToast('warning', title, message);
   }
 
