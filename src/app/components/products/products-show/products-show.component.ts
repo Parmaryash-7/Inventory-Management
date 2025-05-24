@@ -36,18 +36,22 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // Delay ensures view is updated before Swiper is initialized
     setTimeout(() => {
-      document.querySelectorAll('.swiper-container').forEach((el) => {
+      document.querySelectorAll(".swiper-container").forEach((el) => {
         new Swiper(el as HTMLElement, {
           slidesPerView: 1,
           spaceBetween: 10,
-          loop: true,
+          loop: false,
           autoplay: {
             delay: 3000,
             disableOnInteraction: false,
           },
           navigation: {
-            nextEl: (el as HTMLElement).querySelector('.swiper-button-next') as HTMLElement,
-            prevEl: (el as HTMLElement).querySelector('.swiper-button-prev') as HTMLElement,
+            nextEl: (el as HTMLElement).querySelector(
+              ".swiper-button-next"
+            ) as HTMLElement,
+            prevEl: (el as HTMLElement).querySelector(
+              ".swiper-button-prev"
+            ) as HTMLElement,
           },
         });
       });
