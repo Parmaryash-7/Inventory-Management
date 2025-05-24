@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { title } from "process";
 import { AlertService } from "src/app/alert.service";
 import { ProductService } from "src/app/services/product.service";
@@ -22,7 +23,9 @@ interface Product {
 export class ProductsShowComponent implements OnInit, AfterViewInit {
   constructor(
     private productService: ProductService,
-    private alertSevice: AlertService
+    private alertSevice: AlertService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   message: string = "";
   products: Product[] = [
@@ -74,9 +77,9 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  onEdit(id: number) {
-    this.alertSevice.error("Function Under Progress! 😵");
-  }
+  // onEdit(id: number) {
+  //   this.alertSevice.error("Function Under Progress! 😵");
+  // }
 
   deleteUser(id: number, product_name: string) {
     this.alertSevice
@@ -95,5 +98,8 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
           this.alertSevice.error("Product Delete Canceled!");
         }
       });
+  }
+  onEdit(id: any): void {
+    this.router.navigate([`/products/edit/${id}`]);
   }
 }
