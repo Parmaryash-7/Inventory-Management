@@ -51,29 +51,46 @@ export class ProductService {
       .pipe(map((res) => res.products));
   }
 
-  getProductById(id: number): Product | undefined {
-    return this.products.find((p) => p.id === id);
+  getProductById(id: number): Observable<Product> {
+    const apiUrl = `${this.base_url}/products/{id}`;
+    const token = localStorage.getItem("auth_token");
+    return this.http.get<Product>(apiUrl, this.getHttpOptions(token));
+    // return this.products.find((p) => p.id === id);
   }
 
-  addProduct(product: Product): void {
-    this.products.push(product);
+  addProduct(product: Product): Observable<Product> {
+    const apiUrl = `${this.base_url}/products`;
+    const token = localStorage.getItem("auth_token");
+    return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
   }
 
-  updateProduct(updatedProduct: Product): boolean {
-    const index = this.products.findIndex((p) => p.id === updatedProduct.id);
-    if (index !== -1) {
-      this.products[index] = updatedProduct;
-      return true;
-    }
-    return false;
+  updateProduct(product: Product): Observable<Product> {
+    const apiUrl = `${this.base_url}/products/{products.id}`;
+    const token = localStorage.getItem("auth_token");
+    return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
   }
 
-  deleteProduct(id: number): boolean {
-    const index = this.products.findIndex((p) => p.id === id);
-    if (index !== -1) {
-      this.products.splice(index, 1);
-      return true;
-    }
-    return false;
+  deleteProduct(id: number): Observable<void> {
+    const apiUrl = `${this.base_url}/products/{products.id}`;
+    const token = localStorage.getItem("auth_token");
+    return this.http.delete<void>(apiUrl, this.getHttpOptions(token));
   }
+
+  // updateProduct(updatedProduct: Product): boolean {
+  //   const index = this.products.findIndex((p) => p.id === updatedProduct.id);
+  //   if (index !== -1) {
+  //     this.products[index] = updatedProduct;
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  // deleteProduct(id: number): boolean {
+  //   const index = this.products.findIndex((p) => p.id === id);
+  //   if (index !== -1) {
+  //     this.products.splice(index, 1);
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }
