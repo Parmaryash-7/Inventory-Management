@@ -28,7 +28,8 @@ export class AppComponent {
   constructor(private router: Router){
     this.router.events.subscribe((e: any)=>{
       if(e instanceof NavigationEnd){
-        if(e.url.includes('admin')){
+        console.log(e.url);
+        if(e.url.includes('admin') || e.url.includes('login') || e.url == '/'){
           this.IsDashboard = true;
         }else {
           this.IsDashboard = false;
