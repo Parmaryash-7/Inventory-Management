@@ -75,14 +75,22 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
 
   onEdit(id: number) {}
 
-  deleteUser(id: number) {
-    this.productService.deleteProduct(id).subscribe((res: any) => {
-      if (res.status) {
-        this.alertSevice.success("Product Deleted Successfully!");
-      } else {
-        this.alertSevice.error("Product Not Deleted!");
-      }
-      this.getProducts();
-    });
+  deleteUser(id: number, product_name: string) {
+    this.alertSevice
+      .confirm(`Want to delete Product ${product_name} ?`)
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.productService.deleteProduct(id).subscribe((res: any) => {
+            if (res.status) {
+              this.alertSevice.success("Product Deleted Successfully!");
+            } else {
+              this.alertSevice.error("Product Not Deleted!");
+            }
+            this.getProducts();
+          });
+        } else {
+          this.alertSevice.error("Product Delete Canceled!");
+        }
+      });
   }
 }
