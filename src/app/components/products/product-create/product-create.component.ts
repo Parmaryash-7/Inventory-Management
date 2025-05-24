@@ -29,9 +29,56 @@ export class ProductCreateComponent implements OnInit {
   // Handle image file input
   onMediaChange(event: Event): void {
     const input = event.target as HTMLInputElement;
+<<<<<<< HEAD
     if (input.files && input.files.length > 0) {
       const files = Array.from(input.files);
       files.forEach((file) => {
+=======
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
+      console.log("Selected file:", this.selectedFile);
+      // You can add preview or upload logic here if needed
+    }
+  }
+
+  onSubmit() {
+    if (
+      !this.product.id ||
+      !this.product.name ||
+      !this.product.amount ||
+      !this.product.stock
+    ) {
+      return;
+    }
+
+    this.productService.addProduct({ ...this.product });
+    this.submitted = true;
+
+    // Reset form
+    this.product = {
+      id: null!,
+      name: "",
+      amount: null!,
+      mediaGallery: [],
+      stock: null!,
+      category: "",
+      description: "",
+      // count: null!,
+    };
+
+    // Navigate to products list page after create
+    this.router.navigate(["/products"]);
+  }
+
+  public mediaArray: any = [];
+  public tempArray: any;
+
+  onMediaChange(event: any) {
+    const files = event.target.files;
+    for (let key in files) {
+      const file = files[key];
+      if (file instanceof Blob) {
+>>>>>>> 47b0f143b74e369e3a984dbd70dca0395c2f1f39
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.mediaArray.push({ image: e.target.result });
@@ -46,6 +93,7 @@ export class ProductCreateComponent implements OnInit {
   // Remove selected media
   removeMedia(index: number): void {
     this.mediaArray.splice(index, 1);
+<<<<<<< HEAD
     this.tempArray.splice(index, 1);
     this.product.mediaGallery = [...this.tempArray];
   }
@@ -84,5 +132,12 @@ export class ProductCreateComponent implements OnInit {
 
     // Navigate to product list
     this.router.navigate(["/products"]);
+=======
+    this.product.mediaGallery.splice(index, 1);
+    // if (removeId) {
+    //   this.removedMedia.push(removeId);
+    //   this.careerObj.removeMedia = this.removedMedia;
+    // }
+>>>>>>> 47b0f143b74e369e3a984dbd70dca0395c2f1f39
   }
 }

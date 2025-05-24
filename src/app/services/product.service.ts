@@ -53,26 +53,26 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product> {
-    const apiUrl = `${this.base_url}/products/{id}`;
+    const apiUrl = `${this.base_url}/products/${id}`;
     const token = localStorage.getItem("auth_token");
     return this.http.get<Product>(apiUrl, this.getHttpOptions(token));
     // return this.products.find((p) => p.id === id);
   }
 
   addProduct(product: Product): Observable<Product> {
-    const apiUrl = `${this.base_url}/products`;
+    const apiUrl = `${this.base_url}/add_product`;
     const token = localStorage.getItem("auth_token");
     return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
   }
 
   updateProduct(product: Product): Observable<Product> {
-    const apiUrl = `${this.base_url}/products/{products.id}`;
+    const apiUrl = `${this.base_url}/update_product/${product.id}`;
     const token = localStorage.getItem("auth_token");
     return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
   }
 
   deleteProduct(id: number): Observable<void> {
-    const apiUrl = `${this.base_url}/products/{products.id}`;
+    const apiUrl = `${this.base_url}/delete_product/${id}`;
     const token = localStorage.getItem("auth_token");
     return this.http.delete<void>(apiUrl, this.getHttpOptions(token));
   }
