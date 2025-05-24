@@ -162,6 +162,14 @@
     <!-- Submit -->
     <button class="button" type="submit">Create</button>
 
-    <p *ngIf="submitted">Product successfully created!</p>
+    <!-- General error message -->
+    <!-- <p
+      class="text-danger"
+      *ngIf="submitted && !productForm.form.valid && mediaArray.length === 0"
+    >
+      Please fill out this form.
+    </p> -->
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div>
