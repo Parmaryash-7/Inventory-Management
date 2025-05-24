@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AlertService } from "src/app/alert.service";
 import { ProductService } from "src/app/services/product.service";
 
 interface Product {
@@ -16,7 +17,10 @@ interface Product {
   styleUrls: ["./products-show.component.css"],
 })
 export class ProductsShowComponent implements OnInit {
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private alertSevice: AlertService
+  ) {}
   message: string = "";
   products: Product[] = [
     // { id: 1, name: "Product A", count: 15, amount: 250 },
@@ -24,7 +28,7 @@ export class ProductsShowComponent implements OnInit {
     // { id: 3, name: "Product C", count: 20, amount: 340 },
   ];
 
-  ngOnInit() {
+  getProducts() {
     this.productService.getProducts().subscribe((res) => {
       if (res.status) {
         // console.log(res.products);
@@ -39,7 +43,20 @@ export class ProductsShowComponent implements OnInit {
     });
   }
 
-  onEdit() {}
+  ngOnInit() {
+    this.getProducts();
+  }
 
-  deleteUser() {}
+  onEdit(id: number) {}
+
+  deleteUser(id: number) {
+    this.productService.deleteProduct(id).subscribe((res: any) => {
+      if (res.status) {
+        this.alertSevice.success("Product Deleted Successfully!");
+      } else {
+        this.alertSevice.error("Product Not Deleted!");
+      }
+      this.getProducts();
+    });
+  }
 }
