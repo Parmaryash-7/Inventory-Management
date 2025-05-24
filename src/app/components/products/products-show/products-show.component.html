@@ -1,6 +1,6 @@
 <div class="products-container">
   <h2>Products List</h2>
-  <table>
+  <table *ngIf="products.length > 0; else NoProducts">
     <thead>
       <tr>
         <th>ID</th>
@@ -49,4 +49,7 @@
       </tr>
     </tbody>
   </table>
+  <ng-template #NoProducts>
+    <h1>{{ message }}</h1>
+  </ng-template>
 </div>

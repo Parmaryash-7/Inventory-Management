@@ -43,12 +43,13 @@ export class ProductService {
     return { headers };
   }
 
-  getProducts(): Observable<Product[]> {
+  getProducts(): Observable<any> {
     const apiUrl = `${this.base_url}/products`;
     const token = localStorage.getItem("auth_token");
-    return this.http
-      .get<{ products: Product[] }>(apiUrl, this.getHttpOptions(token))
-      .pipe(map((res) => res.products));
+    return this.http.get<{ products: Product[] }>(
+      apiUrl,
+      this.getHttpOptions(token)
+    );
   }
 
   getProductById(id: number): Observable<Product> {
