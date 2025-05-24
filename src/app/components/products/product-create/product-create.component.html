@@ -8,7 +8,9 @@
         <label for="name">Product Name</label>
         <input id="name" formControlName="name" type="text" />
         <div *ngIf="f.name.touched && f.name.invalid">
-          <small class="text-danger">Product name is required (min 3 characters).</small>
+          <small class="text-danger"
+            >Product name is required (min 3 characters).</small
+          >
         </div>
       </div>
 
@@ -70,21 +72,34 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
           "
-        >Select Images</label>
+          >Select Images</label
+        >
         <input
           type="file"
           (change)="onMediaChange($event)"
           accept="image/jpeg"
           multiple
-          style="opacity: 0; z-index: 9; position: relative; width: 200px; cursor: pointer;"
+          style="
+            opacity: 0;
+            z-index: 9;
+            position: relative;
+            width: 200px;
+            cursor: pointer;
+          "
         />
       </div>
-      <div *ngIf="mediaArray.length === 0 && submitted" style="margin-top: 20px;">
+      <div
+        *ngIf="mediaArray.length === 0 && submitted"
+        style="margin-top: 20px"
+      >
         <small class="text-danger">At least one image is required.</small>
       </div>
 
       <div class="mediaFlex d-grid">
-        <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery">
+        <div
+          *ngFor="let media of mediaArray; let i = index"
+          class="mediaGallery"
+        >
           <span
             class="material-symbols-outlined"
             (click)="removeMedia(i)"
@@ -95,7 +110,12 @@
           <img
             [src]="media.image"
             alt="media"
-            style="aspect-ratio: 1; object-fit: cover; width: 85%; border-radius: 10px;"
+            style="
+              aspect-ratio: 1;
+              object-fit: cover;
+              width: 85%;
+              border-radius: 10px;
+            "
           />
         </div>
       </div>
