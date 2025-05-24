@@ -26,26 +26,35 @@ export class ReportsComponent implements OnInit {
   yAxisLabelAmount = "Amount";
 
   constructor(private productService: ProductService) {}
+  message: string = "";
 
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    this.productService.getProducts().subscribe((res) => {
+      if (res.status) {
+        // console.log(res.products);
+        this.products = res.products;
+        this.countData = this.products
+          .filter(
+            (p) => p.stock !== undefined && p.stock !== null && !isNaN(p.stock)
+          )
+          .map((p) => ({
+            name: p.name,
+            value: Number(p.stock) || 0,
+          }));
 
-    this.countData = this.products
-      .filter(
-        (p) => p.stock !== undefined && p.stock !== null && !isNaN(p.stock)
-      )
-      .map((p) => ({
-        name: p.name,
-        value: Number(p.stock) || 0,
-      }));
-
-    this.amountData = this.products
-      .filter(
-        (p) => p.amount !== undefined && p.amount !== null && !isNaN(p.amount)
-      )
-      .map((p) => ({
-        name: p.name,
-        value: Number(p.amount) || 0,
-      }));
+        console.log(this.countData);
+        this.amountData = this.products
+          .filter(
+            (p) =>
+              p.amount !== undefined && p.amount !== null && !isNaN(p.amount)
+          )
+          .map((p) => ({
+            name: p.name,
+            value: Number(p.amount) || 0,
+          }));
+      } else {
+        this.message = res.message;
+      }
+    });
   }
 }
