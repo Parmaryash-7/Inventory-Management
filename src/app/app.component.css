@@ -48,12 +48,13 @@ ul {
 }
 
 .menu_btn {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     margin: 50px;
   /* display: none; */
     color: #000000;
+    z-index: 999999;
 }
 
 .menu_text {

@@ -80,7 +80,7 @@ export class ProductCreateComponent implements OnInit {
       image: [...this.tempArray]
     };
 
-    console.log(newProduct);
+    // console.log(newProduct);
 
     this.productService.addProduct(newProduct).subscribe((res)=>{
       if(res.status){
@@ -91,6 +91,7 @@ export class ProductCreateComponent implements OnInit {
         this.errorMessage = '';
         this.router.navigate(['/products']);
       }else {
+        console.log(res);
         this.alertService.error("Something Went Wrong!", "Creation Failed!")
       }
     });
