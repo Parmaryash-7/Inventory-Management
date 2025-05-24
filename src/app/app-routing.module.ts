@@ -40,7 +40,7 @@ const routes: Routes = [
     data: { role: "admin" },
   },
   {
-    path: "products/edit/:id",
+    path: "products/edit/:name",
     component: ProductCreateComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: "admin" },

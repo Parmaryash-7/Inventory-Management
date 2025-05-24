@@ -99,7 +99,8 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
         }
       });
   }
-  onEdit(id: any): void {
-    this.router.navigate([`/products/edit/${id}`]);
+  
+  onEdit(name: string): void {
+    this.router.navigate([`/products/edit/${name}`]);
   }
 }

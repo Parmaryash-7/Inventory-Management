@@ -1,5 +1,5 @@
 <div class="product-create-container">
-  <h2>Create Product</h2>
+  <h2>{{ formHead }}</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-grid">
@@ -8,9 +8,9 @@
         <label for="name">Product Name</label>
         <input id="name" formControlName="name" type="text" />
         <div *ngIf="f.name.touched && f.name.invalid">
-          <small class="text-danger"
-            >Product name is required (min 3 characters).</small
-          >
+          <small class="text-danger">
+            Product name is required (min 3 characters).
+          </small>
         </div>
       </div>
 
@@ -32,19 +32,6 @@
         </div>
       </div>
 
-      <!-- Description -->
-      <div style="grid-row: 2 / span 2; grid-column: 2; width: 100%">
-        <label for="description">Description</label>
-        <textarea
-          id="description"
-          formControlName="description"
-          rows="5"
-        ></textarea>
-        <div *ngIf="f.description.touched && f.description.invalid">
-          <small class="text-danger">Description is required.</small>
-        </div>
-      </div>
-
       <!-- Amount -->
       <div>
         <label for="amount">Amount</label>
@@ -53,12 +40,22 @@
           <small class="text-danger">Amount is required.</small>
         </div>
       </div>
+
+      <!-- Description -->
+      <div style="grid-column: span 2; width: 100%">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="5"></textarea>
+        <div *ngIf="f.description.touched && f.description.invalid">
+          <small class="text-danger">Description is required.</small>
+        </div>
+      </div>
     </div>
 
     <!-- Image Upload -->
-    <div>
+    <div class="image-upload-section" style="margin-top: 20px">
       <div class="formInput" style="position: relative">
         <label
+          for="fileInput"
           style="
             cursor: pointer;
             text-align: center;
@@ -72,9 +69,11 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
           "
-          >Select Images</label
         >
+          Select Images
+        </label>
         <input
+          id="fileInput"
           type="file"
           (change)="onMediaChange($event)"
           accept="image/jpeg"
@@ -88,33 +87,39 @@
           "
         />
       </div>
-      <!-- <div
-        *ngIf="mediaArray.length === 0 && submitted"
-        style="margin-top: 20px"
-      >
-        <small class="text-danger">At least one image is required.</small>
-      </div> -->
 
-      <div class="mediaFlex d-grid">
+      <!-- Media Previews -->
+      <div class="mediaFlex d-grid" style="margin-top: 20px">
         <div
           *ngFor="let media of mediaArray; let i = index"
           class="mediaGallery"
+          style="position: relative; display: inline-block; margin: 10px"
         >
           <span
             class="material-symbols-outlined"
             (click)="removeMedia(i)"
-            style="cursor: pointer"
+            style="
+              cursor: pointer;
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              background: #fff;
+              border-radius: 50%;
+              padding: 2px;
+            "
           >
             close
           </span>
           <img
-            [src]="media.image"
+            [src]="media"
             alt="media"
             style="
               aspect-ratio: 1;
               object-fit: cover;
-              width: 85%;
+              width: 85px;
+              height: 85px;
               border-radius: 10px;
+              display: block;
             "
           />
         </div>
@@ -122,9 +127,9 @@
     </div>
 
     <!-- Submit -->
-    <button type="submit">Create</button>
+    <button type="submit" style="margin-top: 20px">Create</button>
 
     <!-- Global error -->
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="error text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div>

@@ -59,6 +59,13 @@ export class ProductService {
     // return this.products.find((p) => p.id === id);
   }
 
+  getProductByName(name: string): Observable<Product> {
+    const apiUrl = `${this.base_url}/get_product_by_name/${name}`
+    const token = localStorage.getItem("auth_token");
+    return this.http.get<Product>(apiUrl, this.getHttpOptions(token));
+    // return this.products.find((p) => p.id === id);
+  }
+
   addProduct(product: any): Observable<any> {
     const apiUrl = `${this.base_url}/add_product`;
     const token = localStorage.getItem("auth_token");
