@@ -89,10 +89,24 @@ export class ProductService {
   }
 
 
-  updateProduct(product: Product): Observable<Product> {
-    const apiUrl = `${this.base_url}/update_product/${product.id}`;
+  updateProduct(product: any, id: number): Observable<Product> {
+    const apiUrl = `${this.base_url}/update_product/${id}`;
     const token = localStorage.getItem("auth_token");
-    return this.http.post<Product>(apiUrl, product, this.getHttpOptions(token));
+
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('category', product.category);
+    formData.append('description', product.description);
+    formData.append('amount', product.amount);
+    formData.append('stock', product.stock);
+
+    if (product.image && Array.isArray(product.image)) {
+      product.image.forEach((file: File) => {
+        formData.append('image[]', file);
+      });
+    }
+
+    return this.http.post<Product>(apiUrl, formData, this.getHttpOptions(token));
   }
 
   deleteProduct(id: number): Observable<void> {

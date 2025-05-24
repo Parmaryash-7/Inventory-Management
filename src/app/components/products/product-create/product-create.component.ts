@@ -25,6 +25,7 @@ export class ProductCreateComponent implements OnInit {
     category: new FormControl(''),
     description: new FormControl(''),
   });
+  product_id: number = null;
 
   constructor(
     private productService: ProductService,
@@ -49,6 +50,7 @@ export class ProductCreateComponent implements OnInit {
             category: new FormControl(res.product.category),
             description: new FormControl(res.product.description)
           });
+          this.product_id = res.product.id;
           if (res.product.image && res.product.image.length) {
             this.mediaArray = res.product.image;
           }
@@ -112,17 +114,34 @@ export class ProductCreateComponent implements OnInit {
 
     console.log(newProduct);
 
-    this.productService.addProduct(newProduct).subscribe((res) => {
-      if (res.status) {
-        this.alertService.success("Product Created!");
-        this.productForm.reset();
-        this.mediaArray = [];
-        this.tempArray = [];
-        this.errorMessage = '';
-        this.router.navigate(['/products']);
-      } else {
-        this.alertService.error("Something Went Wrong!", "Creation Failed!");
-      }
-    });
+    if(this.name){
+      this.productService.updateProduct(newProduct, this.product_id).subscribe((res: any) => {
+        console.log(res);
+        if (res.status) {
+          this.alertService.success("Product Updated!");
+          this.productForm.reset();
+          this.mediaArray = [];
+          this.tempArray = [];
+          this.errorMessage = '';
+          this.router.navigate(['/products']);
+        } else {
+          this.alertService.error(res.message, "Updation Failed!");
+        }
+      });
+    }else{
+      this.productService.addProduct(newProduct).subscribe((res) => {
+        if (res.status) {
+          this.alertService.success("Product Created!");
+          this.productForm.reset();
+          this.mediaArray = [];
+          this.tempArray = [];
+          this.errorMessage = '';
+          this.router.navigate(['/products']);
+        } else {
+          this.alertService.error("Something Went Wrong!", "Creation Failed!");
+        }
+      });
+    }
+
   }
 }
