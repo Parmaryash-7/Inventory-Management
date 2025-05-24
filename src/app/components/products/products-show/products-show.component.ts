@@ -27,7 +27,7 @@ export class ProductsShowComponent implements OnInit {
   ngOnInit() {
     this.productService.getProducts().subscribe((res) => {
       if (res.status) {
-        console.log(res.products);
+        // console.log(res.products);
         this.products = res.products;
         // this.products.forEach((product) => {
         //   console.log(product);
@@ -38,4 +38,8 @@ export class ProductsShowComponent implements OnInit {
       }
     });
   }
+
+  onEdit() {}
+
+  deleteUser() {}
 }
