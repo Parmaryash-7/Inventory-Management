@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/alert.service';
 import { ProductService, Product } from 'src/app/services/product.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class ProductCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -62,24 +64,30 @@ export class ProductCreateComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.productForm.invalid || this.mediaArray.length === 0) {
+    if (this.productForm.invalid) {
       this.errorMessage = 'Please fill out this form.';
       return;
     }
 
     const newProduct: Product = {
-      id: Date.now(),
+      // id: Date.now(),
       ...this.productForm.value,
-      mediaGallery: [...this.tempArray]
+      image: [...this.tempArray]
     };
 
-    this.productService.addProduct(newProduct);
+    console.log(newProduct);
 
-    this.productForm.reset();
-    this.mediaArray = [];
-    this.tempArray = [];
-    this.errorMessage = '';
-
-    this.router.navigate(['/products']);
+    this.productService.addProduct(newProduct).subscribe((res)=>{
+      if(res.status){
+        this.alertService.success("Product Created!")
+        this.productForm.reset();
+        this.mediaArray = [];
+        this.tempArray = [];
+        this.errorMessage = '';
+        this.router.navigate(['/products']);
+      }else {
+        this.alertService.error("Something Went Wrong!", "Creation Failed!")
+      }
+    });
   }
 }

@@ -79,10 +79,6 @@
           style="opacity: 0; z-index: 9; position: relative; width: 200px; cursor: pointer;"
         />
       </div>
-      <div *ngIf="mediaArray.length === 0 && submitted" style="margin-top: 20px;">
-        <small class="text-danger">At least one image is required.</small>
-      </div>
-
       <div class="mediaFlex d-grid">
         <div *ngFor="let media of mediaArray; let i = index" class="mediaGallery">
           <span
