@@ -17,6 +17,7 @@ interface Product {
 })
 export class ProductsShowComponent implements OnInit {
   constructor(private productService: ProductService) {}
+  message: string = "";
   products: Product[] = [
     // { id: 1, name: "Product A", count: 15, amount: 250 },
     // { id: 2, name: "Product B", count: 7, amount: 120 },
@@ -24,11 +25,17 @@ export class ProductsShowComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((products) => {
-      this.products = products;
-      this.products.forEach((product) => {
-        console.log(product);
-      });
+    this.productService.getProducts().subscribe((res) => {
+      if (res.status) {
+        console.log(res.products);
+        this.products = res.products;
+        // this.products.forEach((product) => {
+        //   console.log(product);
+        // });
+      } else {
+        this.message = res.message;
+        // console.log(this.message);
+      }
     });
   }
 }
