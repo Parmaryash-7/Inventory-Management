@@ -17,8 +17,7 @@ export class ProductCreateComponent implements OnInit {
     description: "",
     // count: null!,
   };
-  
-  
+
   submitted = false;
   selectedFile: File | null = null;
 
@@ -64,8 +63,8 @@ export class ProductCreateComponent implements OnInit {
     this.router.navigate(["/products"]);
   }
 
-  public mediaArray:any = [];
-  public tempArray:any;
+  public mediaArray: any = [];
+  public tempArray: any;
 
   onMediaChange(event: any) {
     const files = event.target.files;
@@ -86,7 +85,7 @@ export class ProductCreateComponent implements OnInit {
   // Media Gallery Remove Function
   removeMedia(index: number, removeId: any) {
     this.mediaArray.splice(index, 1);
-    this.product.mediaGallery.splice(index,1);
+    this.product.mediaGallery.splice(index, 1);
     // if (removeId) {
     //   this.removedMedia.push(removeId);
     //   this.careerObj.removeMedia = this.removedMedia;
