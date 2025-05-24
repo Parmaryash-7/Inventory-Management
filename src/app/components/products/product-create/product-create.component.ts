@@ -19,14 +19,14 @@ export class ProductCreateComponent implements OnInit {
   };
 
   submitted = false;
-  mediaArray: any[] = [];
+  mediaArray: { image: string; id: number }[] = [];
   tempArray: File[] = [];
+  errorMessage = "";
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  // Handle image file input
   onMediaChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -34,7 +34,11 @@ export class ProductCreateComponent implements OnInit {
       files.forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          this.mediaArray.push({ image: e.target.result });
+          const imageData = {
+            image: e.target.result,
+            id: Date.now() + Math.random(),
+          };
+          this.mediaArray.push(imageData);
           this.tempArray.push(file);
           this.product.mediaGallery = [...this.tempArray];
         };
@@ -43,33 +47,33 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
-  // Remove selected media
   removeMedia(index: number): void {
     this.mediaArray.splice(index, 1);
     this.tempArray.splice(index, 1);
     this.product.mediaGallery = [...this.tempArray];
   }
 
-  // Form submit handler
   onSubmit(): void {
-    if (
-      !this.product.id ||
-      !this.product.name ||
-      !this.product.amount ||
-      !this.product.stock ||
-      !this.product.category ||
-      !this.product.description
-    ) {
-      return; // Skip if any required field is missing
-    }
-
-    // Submit the product
-    this.productService.addProduct({ ...this.product });
-
-    // Show confirmation
     this.submitted = true;
 
-    // Reset form
+    const { name, amount, stock, category, description } = this.product;
+
+    const isValid =
+      name.trim() &&
+      amount != null &&
+      stock != null &&
+      category.trim() &&
+      description.trim() &&
+      this.mediaArray.length > 0;
+
+    if (!isValid) {
+      this.errorMessage = "Please fill out this form.";
+      return;
+    }
+
+    this.productService.addProduct({ ...this.product });
+    this.errorMessage = "";
+
     this.product = {
       id: null!,
       name: "",
@@ -82,7 +86,6 @@ export class ProductCreateComponent implements OnInit {
     this.mediaArray = [];
     this.tempArray = [];
 
-    // Navigate to product list
     this.router.navigate(["/products"]);
   }
 }
