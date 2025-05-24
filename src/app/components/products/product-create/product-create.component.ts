@@ -21,7 +21,10 @@ export class ProductCreateComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) {
+
+    // this.router.
+  }
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
@@ -31,6 +34,8 @@ export class ProductCreateComponent implements OnInit {
       category: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
+
+
   }
 
   get f() {
