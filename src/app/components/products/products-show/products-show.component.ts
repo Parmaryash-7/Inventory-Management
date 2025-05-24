@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { title } from "process";
 import { AlertService } from "src/app/alert.service";
 import { ProductService } from "src/app/services/product.service";
 import Swiper from "swiper";
@@ -73,7 +74,9 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  onEdit(id: number) {}
+  onEdit(id: number) {
+    this.alertSevice.error("Function Under Progress! 😵");
+  }
 
   deleteUser(id: number, product_name: string) {
     this.alertSevice
