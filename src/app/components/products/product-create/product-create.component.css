@@ -27,7 +27,7 @@ label {
 input {
     width: 90%;
     padding: 0.6rem 0.8rem;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     border-radius: 6px;
     border: 1.5px solid #ccc;
     font-size: 1rem;
@@ -79,4 +79,38 @@ p {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     margin-top: 12px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+input.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
+    border: 2px solid green;
+}
+
+textarea {
+    resize: none;
+    width: 90%;
+    height: 150px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.mediaFlex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.mediaGallery {
+    position: relative;
+    width: 100px;
+    height: 100px;
 }
