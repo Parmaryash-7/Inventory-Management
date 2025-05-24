@@ -28,13 +28,19 @@ export class AppComponent {
   constructor(private router: Router){
     this.router.events.subscribe((e: any)=>{
       if(e instanceof NavigationEnd){
-        console.log(e.url);
+        // console.log(e.url);
         if(e.url.includes('admin') || e.url.includes('login') || e.url == '/'){
           this.IsDashboard = true;
         }else {
           this.IsDashboard = false;
         }
       }
+    });
+
+    document.addEventListener('keydown',(e)=>{
+      if(e.code.toLowerCase() == 'escape'){
+        this.isMenuOpen = false;
+      };
     })
   }
 }

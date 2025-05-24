@@ -123,10 +123,17 @@ ul {
   transform: rotate(-45deg);
 }
 
-.menu:focus-visible {
-  clip-path: none;
-  -webkit-mask: none;
-  border: none;
-  outline: 2px solid var(--c);
-  outline-offset: 5px;
+.menu_overlay.active{
+    display: block;
+    background: #00000038;
+    z-index: 99;
+}
+
+.menu_overlay{
+    height: 100dvh;
+    width: 100dvw;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
 }

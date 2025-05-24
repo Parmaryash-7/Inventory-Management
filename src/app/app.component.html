@@ -31,6 +31,6 @@
             </li>
         </ul>
   </nav>
-
+  <div class="menu_overlay" [ngClass]="{'active': isMenuOpen}" (click)="onMenuClick($event)"></div>
     <router-outlet></router-outlet>
 </div>
