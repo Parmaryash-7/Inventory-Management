@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { HttpClientModule } from "@angular/common/http";
     ReportsComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule,NgxChartsModule, HttpClientModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, RouterModule,NgxChartsModule, HttpClientModule, ReactiveFormsModule, CommonModule],
   providers: [],
   bootstrap: [AppComponent],
 })
