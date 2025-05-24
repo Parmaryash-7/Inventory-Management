@@ -50,7 +50,6 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Delay ensures view is updated before Swiper is initialized
     setTimeout(() => {
       document.querySelectorAll(".swiper-container").forEach((el) => {
         new Swiper(el as HTMLElement, {
@@ -71,7 +70,7 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
           },
         });
       });
-    }, 100); // Small delay to ensure DOM is ready
+    }, 100);
   }
 
   onEdit(id: number) {}
