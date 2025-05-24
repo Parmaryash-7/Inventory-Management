@@ -18,14 +18,35 @@
         <td>{{ id + 1 }}</td>
         <td>{{ product.name }}</td>
         <td>
-          <ng-container *ngFor="let image of product.image">
+          <!-- <ng-container *ngFor="let image of product.image">
             <img
               [src]="image"
               alt="Product Image"
               class="img-thumbnail"
               style="width: 60px; height: 60px"
             />
-          </ng-container>
+          </ng-container> -->
+          <!-- Swiper -->
+          <div class="swiper-container" style="height: 80px">
+            <div class="swiper-wrapper">
+              <div
+                class="swiper-slide"
+                *ngFor="let image of product.image"
+                style="width: 60px; height: 60px"
+              >
+                <img
+                  [src]="image"
+                  alt="Product Image"
+                  class="img-thumbnail"
+                  style="width: 60px; height: 60px; object-fit: cover"
+                />
+              </div>
+            </div>
+
+            <!-- Optional navigation -->
+            <!-- <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div> -->
+          </div>
         </td>
         <td>{{ product.category }}</td>
         <td>{{ product.description }}</td>
