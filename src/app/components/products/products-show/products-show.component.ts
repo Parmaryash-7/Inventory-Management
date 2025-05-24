@@ -55,5 +55,6 @@ export class ProductsShowComponent implements OnInit, AfterViewInit {
   }
 
   onEdit() {}
+
   deleteUser() {}
 }
