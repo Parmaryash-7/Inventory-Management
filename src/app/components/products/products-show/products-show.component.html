@@ -14,8 +14,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products" class="product-row">
-        <td>{{ product.id }}</td>
+      <tr *ngFor="let product of products; let id = index" class="product-row">
+        <td>{{ id + 1 }}</td>
         <td>{{ product.name }}</td>
         <td>
           <ng-container *ngFor="let image of product.image">
